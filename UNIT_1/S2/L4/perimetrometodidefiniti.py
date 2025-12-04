@@ -20,23 +20,22 @@ match choice:
     case 1:
         print("Hai scelto un quadrato.")
         lato = float(input("Inserisci la lunghezza del lato: "))
-        result = round(perimetroquadrato(lato), 2)
+        result = perimetroquadrato(lato)
     case 2:
         print("Hai scelto un cerchio.")
         raggio = float(input("Inserisci la lunghezza del raggio: "))
-        result = round(perimetrocerchio(raggio), 2)
+        result = perimetrocerchio(raggio)
     case 3:
         print("Hai scelto un rettangolo.")
         base = float(input("Inserisci la lunghezza della base: "))
         altezza = float(input("Inserisci l'altezza del rettangolo: "))
         if base == altezza:
             print("Quello che hai inserito è un quadrato.")
-            result = round(perimetroquadrato(base), 2)
+            result = perimetroquadrato(base)
         else:
-            result = round(perimetrorettangolo(base, altezza), 2)
-            print(f"Il risultato, arrotondato, è: {result}")
+            result = perimetrorettangolo(base, altezza)
 
 try:
-    print(f"Il risultato arrondato è {result}")
+    print(f"Il risultato arrondato è {result:.2f}")
 except:
     print ("La figura che hai scelto non rientra nelle opzioni.")
