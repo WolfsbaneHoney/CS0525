@@ -35,8 +35,8 @@ match choice:
         else:
             result = round(perimetrorettangolo(base, altezza), 2)
             print(f"Il risultato, arrotondato, è: {result}")
-    case _ :
-        print ("La figura che hai scelto non rientra nelle opzioni.")
 
-if result:
+try:
     print(f"Il risultato arrondato è {result}")
+except:
+    print ("La figura che hai scelto non rientra nelle opzioni.")
