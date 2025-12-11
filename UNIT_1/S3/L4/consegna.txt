@@ -1,0 +1,7 @@
+HSNFRGH -> EPICODE
+
+Cifratura: ROT3
+
+QWJhIHZ6b2VidHl2bmdyIHB1ciB6ciBhciBucHBiZXRi -> doppia cifratura
+Base64  -> Aba vzoebtyvngr pur zr ar nppbetb
+ROT13 -> Non imbrogliate che me ne accorgo
