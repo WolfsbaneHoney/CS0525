@@ -1,0 +1,85 @@
+================================================================
+ESERCIZIO: BUSINESS CONTINUITY & DISASTER RECOVERY
+CALCOLO QUANTITATIVO DEL RISCHIO (ALE & SLE)
+================================================================
+
+LEGENDA FORMULE:
+- SLE (Single Loss Expectancy) = Valore Asset * Exposure Factor (EF)
+- ALE (Annual Loss Expectancy) = SLE * Tasso Annuale Occorrenza (ARO)
+
+----------------------------------------------------------------
+
+1. SCENARIO: Inondazione su "Edificio Secondario"
+   - Valore Asset: 150.000 EUR
+   - Exposure Factor (EF): 40% (0,40)
+   - ARO (Frequenza): 1 volta ogni 50 anni
+
+   CALCOLO:
+   SLE = 150.000 * 0,40 = 60.000 EUR
+   ALE = 60.000 / 50    = 1.200 EUR
+
+----------------------------------------------------------------
+
+2. SCENARIO: Terremoto su "Datacenter"
+   - Valore Asset: 100.000 EUR
+   - Exposure Factor (EF): 95% (0,95)
+   - ARO (Frequenza): 1 volta ogni 30 anni
+
+   CALCOLO:
+   SLE = 100.000 * 0,95 = 95.000 EUR
+   ALE = 95.000 / 30    = 3.166,67 EUR
+
+----------------------------------------------------------------
+
+3. SCENARIO: Incendio su "Edificio Primario"
+   - Valore Asset: 350.000 EUR
+   - Exposure Factor (EF): 60% (0,60)
+   - ARO (Frequenza): 1 volta ogni 20 anni
+
+   CALCOLO:
+   SLE = 350.000 * 0,60 = 210.000 EUR
+   ALE = 210.000 / 20   = 10.500 EUR
+
+----------------------------------------------------------------
+
+4. SCENARIO: Incendio su "Edificio Secondario"
+   - Valore Asset: 150.000 EUR
+   - Exposure Factor (EF): 50% (0,50)
+   - ARO (Frequenza): 1 volta ogni 20 anni
+
+   CALCOLO:
+   SLE = 150.000 * 0,50 = 75.000 EUR
+   ALE = 75.000 / 20    = 3.750 EUR
+
+----------------------------------------------------------------
+
+5. SCENARIO: Inondazione su "Edificio Primario"
+   - Valore Asset: 350.000 EUR
+   - Exposure Factor (EF): 55% (0,55)
+   - ARO (Frequenza): 1 volta ogni 50 anni
+
+   CALCOLO:
+   SLE = 350.000 * 0,55 = 192.500 EUR
+   ALE = 192.500 / 50   = 3.850 EUR
+
+----------------------------------------------------------------
+
+6. SCENARIO: Terremoto su "Edificio Primario"
+   - Valore Asset: 350.000 EUR
+   - Exposure Factor (EF): 80% (0,80)
+   - ARO (Frequenza): 1 volta ogni 30 anni
+
+   CALCOLO:
+   SLE = 350.000 * 0,80 = 280.000 EUR
+   ALE = 280.000 / 30   = 9.333,33 EUR
+
+================================================================
+RIEPILOGO FINALE (ORDINATO PER PERDITA ANNUALE)
+================================================================
+1. Incendio - Ed. Primario      : 10.500,00 EUR (RISCHIO PIU' ALTO)
+2. Terremoto - Ed. Primario     :  9.333,33 EUR
+3. Inondazione - Ed. Primario   :  3.850,00 EUR
+4. Incendio - Ed. Secondario    :  3.750,00 EUR
+5. Terremoto - Datacenter       :  3.166,67 EUR
+6. Inondazione - Ed. Secondario :  1.200,00 EUR (RISCHIO PIU' BASSO)
+================================================================
