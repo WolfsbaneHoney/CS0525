@@ -1,0 +1,31 @@
+"Cosa è successo alla finestra del browser web quando il processo è stato terminato?" 
+Risposta: La finestra del browser (Microsoft Edge nel tuo esempio) si chiude immediatamente e scompare dallo schermo.
+
+"Cosa è successo durante il processo ping?" 
+Risposta: Sotto il processo cmd.exe in Process Explorer, è comparso temporaneamente un nuovo processo figlio chiamato PING.EXE. Una volta terminato l'invio dei pacchetti il processo PING.EXE è scomparso.
+
+"Cosa è successo al processo figlio conhost.exe?" 
+Risposta: Quando è stato terminato cmd.exe, anche il processo conhost.exe è scomparso.
+
+"Che tipo di informazioni sono disponibili nella finestra Proprietà?"
+Risposta: Nella scheda Threads, compare un elenco di tutti i thread attivi all'interno di quel processo. Le informazioni includono, tra le altre:
+- TID (Thread ID): L'identificativo numerico univoco del thread.
+- CPU: La percentuale di utilizzo del processore per quel singolo thread.
+- Cycles Delta: Quanto lavoro sta facendo il thread.
+- Start Address: L'indirizzo di memoria dove è iniziata l'esecuzione del thread.
+- State: Lo stato attuale (es. Wait, Running).
+
+"Esaminare gli handle. A cosa puntano gli handle?" 
+Risposta: Gli handle puntano a risorse di sistema che il processo sta utilizzando o ha "aperto". Compaiono riferimenti a:
+- File: Percorsi di file sul disco.
+- Registry Keys (Chiavi di Registro): Configurazioni di sistema lette/scritte.
+- Events/Mutant/Semaphores: Oggetti per la sincronizzazione tra processi.
+- Threads: Riferimenti ad altri thread.
+- Directories: Cartelle aperte.
+
+"Qual è il valore per questa chiave di registro nella colonna Dati (Data)?"
+Risposta: Cambiata da 0x00000001 (1) a 0x00000000 (0)
+
+"Quando apri Process Explorer, cosa vedi?" 
+Risposta: La chiave cambia nuovamente in 0x00000001 (1) - anomalia
+Dovrebbe ridare l'EULA da accettare.
