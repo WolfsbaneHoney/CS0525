@@ -1,0 +1,60 @@
+Pacchetto SYN 
+
+● Qual è il numero di porta TCP di origine? 
+Source Port: 55100
+
+● Come classificheresti la porta di origine? 
+Porta dinamica/effimera
+
+● Qual è il numero di porta TCP di destinazione? 
+Destination Port: 80
+
+● Come classificheresti la porta di destinazione? 
+Porta ben nota
+
+● Quale flag è impostato? 
+.... .... ..1. = Syn: Set
+
+● A quale valore è impostato il numero di sequenza relativo?
+Sequence Number: 0    (relative sequence number)
+
+Pacchetto SYN, ACK
+
+● Quali sono i valori delle porte di origine e destinazione? 
+Source Port: 80; Destination Port: 55100
+
+● Quali flag sono impostati? 
+.... ...1 .... = Acknowledgment: Set; .... .... ..1. = Syn: Set
+
+● A quali valori sono impostati i numeri relativi di sequenza e acknowledgment?
+Sequence Number: 0    (relative sequence number); Acknowledgment Number: 1    (relative ack number)
+
+Pacchetto ACK
+
+● Quale flag è impostato?
+.... ...1 .... = Acknowledgment: Set
+
+man tcpdump
+
+● Cosa fa l'opzione -r?
+Legge e analizza i pacchetti da un file .pcap salvato su disco invece che catturarli in tempo reale dall'interfaccia di rete.
+
+Esempio del 3 ways handshake letto con tcpdump -r:
+
+[analyst@secOps ~]$ tcpdump -r /home/analyst/capture.pcap tcp -c 3
+reading from file /home/analyst/capture.pcap, link-type EN10MB (Ethernet), snapshot length 262144
+08:31:58.070684 IP 10.0.0.11.55100 > 172.16.0.40.http: Flags [S], seq 2975875901, win 42340, options [mss 1460,sackOK,TS val 1721951805 ecr 0,nop,wscale 9], length 0
+08:31:58.070726 IP 172.16.0.40.http > 10.0.0.11.55100: Flags [S.], seq 4225261559, ack 2975875902, win 43440, options [mss 1460,sackOK,TS val 3336663061 ecr 1721951805,nop,wscale 9], length 0
+08:31:58.070737 IP 10.0.0.11.55100 > 172.16.0.40.http: Flags [.], ack 1, win 83, options [nop,nop,TS val 1721951805 ecr 3336663061], length 0
+
+1. Ci sono centinaia di filtri disponibili in Wireshark. Una rete di grandi dimensioni potrebbe avere numerosi filtri e molti tipi diversi di traffico. Elenca tre filtri che potrebbero essere utili a un amministratore di rete.
+
+ip.addr == 192.168.1.10: Mostra tutto il traffico (in e out) di uno specifico dispositivo.
+tcp.analysis.flags: Un filtro di diagnostica. Mostra solo ritrasmissioni, pacchetti persi e finestre zero (problemi di rete).
+http.request.method == "POST": Isola i pacchetti dove l'utente sta inviando dati (es. login, upload file), quindi pacchetti potenzialmente pericolosi (password in chiaro, traffico sospetto verso server)
+
+2. In quali altri modi Wireshark potrebbe essere utilizzato in una rete di produzione?
+Analisi Forense (Post-Incidente): Analizzare file .pcap registrati in passato per ricostruire un attacco (es. quale file malevolo è stato scaricato esattamente alle 03:00 di notte?).
+Baselining (Creazione della "Normalità"): Analizzare il traffico in un giorno tranquillo per capire cosa è "normale". Senza questo, è impossibile capire cosa è "anomalo" durante un attacco.
+Analisi delle Latenze: Misurare il tempo di risposta (Delta Time) per dimostrare se la lentezza è colpa della rete (pacchetti persi) o del server (il pacchetto arriva subito, ma il server ci mette 5 secondi a rispondere).
+Reverse Engineering di Protocolli: Capire come funziona un malware o un'applicazione sconosciuta osservando come "parla" sulla rete.
