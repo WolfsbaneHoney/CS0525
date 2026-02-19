@@ -1,0 +1,87 @@
+----------- Primo pacchetto ------------ Query DNS
+
+"Quali sono gli indirizzi MAC di origine e destinazione?"
+Source: PCSSystemtec_1f:b7:23 (08:00:27:1f:b7:23)
+Destination: 52:55:c0:a8:32:01 (52:55:c0:a8:32:01)
+
+"A quali interfacce di rete sono associati questi indirizzi MAC?"
+Interfaccia di Origine: È la scheda di rete virtuale di una VM VirtualBox
+Interfaccia di Destinazione: È un indirizzo Unicast. c0:a8:32:01 in esadecimale corrisponde all'IP 192.168.50.1. È quindi molto probabile che questa sia l'interfaccia del gateway.
+
+"Quali sono gli indirizzi IP di origine e destinazione?"
+Source Address: 192.168.50.3
+Destination Address: 192.168.1.1
+
+"A quali interfacce di rete sono associati questi indirizzi IP?"
+Interfaccia di origine: L'indirizzo IP della macchina (kali) che sta avviando la connessione.
+Interfaccia di destinazione: L'indirizzo IP del Server DNS locale.
+
+"Quali sono le porte di origine e destinazione?"
+Source Port: 45137
+Destination Port: 53
+
+"Qual è il numero di porta DNS predefinito?"
+53
+
+"Confrontare gli indirizzi MAC e IP nei risultati di Wireshark con gli indirizzi IP e MAC. Qual è la tua osservazione?"
+Indirizzi IP e MAC di ifconfig:
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.50.3  netmask 255.255.255.0  broadcast 192.168.50.255
+        inet6 fe80::8fde:249:ace3:7a28  prefixlen 64  scopeid 0x20<link>
+        ether 08:00:27:1f:b7:23  txqueuelen 1000  (Ethernet)
+        RX packets 26  bytes 5968 (5.8 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 52  bytes 6288 (6.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+Source address e source MAC corrispondono all'IP della macchina (inet) e al mac dell'ethernet (ether)
+
+----------- Secondo pacchetto ------------ Response DNS
+
+"Quali sono gli indirizzi MAC e IP e i numeri di porta di origine e destinazione?"
+Source: 52:55:c0:a8:32:01 (52:55:c0:a8:32:01)
+Source Address: 192.168.1.1
+Source Port: 53
+Destination: PCSSystemtec_1f:b7:23 (08:00:27:1f:b7:23)
+Destination Address: 192.168.50.3
+Destination Port: 45137
+
+"Come si confrontano con gli indirizzi nei pacchetti di query DNS?"
+Sono ad essi speculari
+
+"Il server DNS può fare query ricorsive?"
+.... ...1 .... .... = Recursion desired: Do query recursively
+
+"Come si confrontano i risultati con quelli di nslookup?"
+└─$ nslookup
+> www.cisco.com
+Server:         192.168.1.1
+Address:        192.168.1.1#53
+
+Non-authoritative answer:
+www.cisco.com   canonical name = www.cisco.com.akadns.net.
+www.cisco.com.akadns.net        canonical name = wwwds.cisco.com.edgekey.net.
+wwwds.cisco.com.edgekey.net     canonical name = wwwds.cisco.com.edgekey.net.globalredir.akadns.net.
+wwwds.cisco.com.edgekey.net.globalredir.akadns.net      canonical name = e2867.dsca.akamaiedge.net.
+Name:   e2867.dsca.akamaiedge.net
+Address: 184.25.52.119
+Name:   e2867.dsca.akamaiedge.net
+Address: 2a02:26f0:2d:a81::b33
+Name:   e2867.dsca.akamaiedge.net
+Address: 2a02:26f0:2d:a96::b33
+
+Confrontando i risultati di Wireshark con l'output di nslookup, si osserva che:
+- Struttura CNAME (Alias): I risultati sono identici. Entrambi mostrano l'intera catena di risoluzione che parte da www.cisco.com e attraversa vari domini di servizio (akadns.net, edgekey.net) fino ad arrivare all'host fisico della CDN Akamai (e2867...).
+- Record A (Indirizzo IP): In questo caso specifico, l'indirizzo IP restituito (184.25.52.119) corrisponde perfettamente a quello catturato in Wireshark. Questo indica che la mappatura tra il nome del server e l'IP non è cambiata nell'intervallo di tempo tra l'analisi del traffico e l'esecuzione del comando manuale, oppure che la risposta è stata fornita dalla cache del server DNS locale (192.168.1.1).
+
+"Dai risultati di Wireshark, cos'altro puoi imparare sulla rete quando rimuovi il filtro?"
+Rimuovendo i filtri specifici, è possibile analizzare tutto il traffico di background ("rumore") della rete locale. Questo permette di apprendere:
+- Topologia della Rete (ARP): Attraverso i messaggi ARP, è possibile mappare gli indirizzi IP e MAC degli altri dispositivi connessi alla stessa rete.
+- Identificazione Dispositivi (Discovery Protocols): Protocolli di broadcast come SSDP, MDNS o LLMNR rivelano la presenza e il tipo di dispositivi attivi (es. Stampanti, Smart TV, workstation Windows).
+- Stato della rete: È possibile individuare problemi di configurazione, ritrasmissioni TCP eccessive o traffico anomalo generato da software in background.
+
+"Come può un attaccante usare Wireshark per compromettere la sicurezza della tua rete?"
+Un attaccante che ha accesso alla rete può utilizzare Wireshark in modalità promiscua per condurre attività di Sniffing, compromettendo la riservatezza dei dati:
+- Furto di Credenziali (Credential Sniffing): Se vengono utilizzati protocolli non cifrati (come HTTP, FTP, Telnet), l'attaccante può leggere username e password direttamente dai pacchetti catturati.
+- Session Hijacking: L'attaccante può intercettare i cookie di sessione non protetti per impersonare l'utente su siti web senza conoscere la password.
+- Ricognizione (Reconnaissance): L'attaccante può analizzare il traffico per mappare la rete, identificare sistemi operativi, porte aperte e vulnerabilità specifiche da sfruttare successivamente per un attacco attivo (es. Man-in-the-Middle).
