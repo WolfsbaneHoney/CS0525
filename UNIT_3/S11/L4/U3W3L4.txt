@@ -1,0 +1,102 @@
+Sei riuscito a trovare subito space.txt?
+No
+
+Perché il prompt non viene mostrato nel terminale?
+Perché l'app è aperta e quindi mette in pausa la shell, per risolvere, va aperto da background (scite space.txt &) o, quando è già aperto CTRL+Z bg
+
+Quale carattere usa nano per rappresentare che una linea continua oltre i bordi dello schermo?
+>
+
+Perché i file di configurazione delle applicazioni utente sono salvati nella directory home dell'utente e non sotto /etc con tutti gli altri file di configurazione a livello di sistema?
+Per permettere a ciascun utente una personalizzazione
+
+Anche la finestra del terminale che era già aperta ha cambiato colore da verde a rosso? Spiega.
+No, le modifiche non sono retroattive in quanto il file di configurazione (.bashrc) è uno script di inizializzazione. Questo script viene letto ed eseguito dalla shell solo nel momento in cui si apre un nuovo terminale, oppure forzandone la rilettura nella sessione già aperta tramite il comando source ~/.bashrc.
+
+A cosa si riferisce il messaggio di errore?
+127.0.0.1 - - [19/Feb/2026:10:46:48 -0500] "GET /favicon.ico HTTP/1.1" 404 153 "http://127.0.0.1:8080/" "Mozilla/5.0 (X11; Linux x86_64; rv:139.0) Gecko/20100101 Firefox/139.0"
+Da browser, non riesce a caricare favicon.ico
+
+Appare la pagina web?
+No, dà Unable to connect
+
+Puoi modificare il file /etc/nginx/custom_server.conf con SciTE? Descrivi il processo di seguito.
+sudo nano /etc/nginx/custom_server.conf
+
+Elenca alcune sezioni incluse in una pagina man.
+synopsis
+description
+examples
+
+Qual è la funzione del comando `cp`? 
+Copiare un file
+
+Quale comando useresti per trovare maggiori informazioni sul comando pwd? 
+man pwd
+
+Qual è la funzione del comando pwd?
+print name of working/current directory, ovvero dichiara il nome della cartella in cui si è.
+
+Qual è la directory corrente?
+/home/analyst
+
+In quale cartella ti trovi ora?
+/home/analyst/cyops_folder3
+
+Perché è successo?
+Si torna indietro, la tilde agisce come come un "torna alla home directory".
+
+Cosa succede? (cd .)
+ci si sposta all'interno della cartella corrente, visivamente, non succede nulla.
+
+Cosa succede? (cd ..)
+Ci si sposta indietro, all'interno della cartella precedente (genitore, parent directory) rispetto a quella in cui siamo.
+
+Quale sarebbe la directory corrente se eseguissi il comando cd .. da [analyst@secOps ~]$? 
+[analyst@secOps home]$ da /home/analyst a /home
+
+Quale sarebbe la directory corrente se eseguissi il comando cd .. da [analyst@secOps home]$? 
+[analyst@secOps /]$ da /home a root /
+
+Quale sarebbe la directory corrente se eseguissi il comando cd .. da [analyst@secOps /]$?
+[analyst@secOps /]$ da root / a root /
+
+Nessun output è stato mostrato. È previsto? Spiega.
+È previsto, l'output sarà all'interno del file some_text_file.txt
+
+Cosa è successo al file di testo? Spiega. (echo frase > file.txt)
+È stato sovrascritto.
+
+Cosa è successo al file di testo? Spiega. (echo frase >> file.txt)
+La frase è stata messa all'interno del file, a seguito della precedente, su nuova riga a capo.
+
+Quanti file vengono visualizzati? (ls -l)
+12
+
+Quanti file in più vengono visualizzati rispetto a prima? Spiega.
+Vengono visualizzati un totale di 47 file, 35 in più rispetto a prima, in quanto si vedono anche i file nascosti.
+
+È possibile nascondere intere directory aggiungendo un punto prima del loro nome? 
+Sì
+
+Ci sono directory nascoste nell'output di ls -la sopra?
+Sì
+
+Fornisci tre esempi di file nascosti mostrati nell'output di `ls -la` sopra.
+.config (dove sono salvate le impostazioni dei programmi)
+.gnupg (molto importante in cybersecurity: contiene le chiavi di crittografia!)
+.ssh (fondamentale: contiene le chiavi per gli accessi remoti sicuri)
+
+Quali sono i file sorgente e destinazione? (usa percorsi completi per rappresentare i parametri)
+Percorso completo del file sorgente: /home/analyst/some_text_file.txt
+Percorso completo della destinazione: /home/analyst/cyops_folder2/salvate
+
+Quale comando hai usato per completare l'attività?
+mv cyops_folder2/some_text_file.txt .
+
+Quali sono i vantaggi dell'utilizzo della riga di comando Linux?
+Controllo Assoluto: Offre un accesso diretto, profondo e senza filtri a tutte le impostazioni e ai file del sistema operativo.
+Automazione: Permette di creare script per eseguire istantaneamente compiti noiosi o ripetitivi.
+Gestione Remota: È lo standard universale (tramite SSH) per amministrare in sicurezza i server di tutto il mondo, che spesso non hanno un'interfaccia grafica.
+Efficienza delle Risorse: Consuma pochissima RAM e CPU rispetto a un'interfaccia visiva, massimizzando le prestazioni della macchina.
+Velocità di Troubleshooting: Consente di combinare comandi per filtrare migliaia di righe di log e trovare errori (o attacchi) in tempo reale.
